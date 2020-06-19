@@ -76,35 +76,30 @@ class Binary_Clock():
         for block in self.blocks:
             block.draw(surface)
 
+    @classmethod
+    def _resolve_state(cls, blocks, time):
+        first_digit_bin = bin(int(time) // 10).split('b')[1][::-1]
+        for i, digit_str in enumerate(first_digit_bin):
+            blocks[0][i].state = int(digit_str)
+
+        second_digit_bin = bin(int(time) % 10).split('b')[1][::-1]
+        for i, digit_str in enumerate(second_digit_bin):
+            blocks[1][i].state = int(digit_str)
+
     def _update_hours(self, time):
         hours = time.split(':')[0]
-        hours_bin_first = bin(int(hours) // 10).split('b')[1][::-1]
-        for i in range(len(hours_bin_first)):
-            self.hours_blocks[0][i].state = int(hours_bin_first[i])
-
-        hours_bin_second = bin(int(hours) % 10).split('b')[1][::-1]
-        for i in range(len(hours_bin_second)):
-            self.hours_blocks[1][i].state = int(hours_bin_second[i])
+        self._resolve_state(self.hours_blocks, hours)
+        self._resolve_state(self.hours_blocks, hours)
 
     def _update_mins(self, time):
         mins = time.split(':')[1]
-        mins_bin_first = bin(int(mins) // 10).split('b')[1][::-1]
-        for i in range(len(mins_bin_first)):
-            self.mins_blocks[0][i].state = int(mins_bin_first[i])
-
-        mins_bin_second = bin(int(mins) % 10).split('b')[1][::-1]
-        for i in range(len(mins_bin_second)):
-            self.mins_blocks[1][i].state = int(mins_bin_second[i])
+        self._resolve_state(self.mins_blocks, mins)
+        self._resolve_state(self.mins_blocks, mins)
 
     def _update_secs(self, time):
         secs = time.split(':')[2]
-        secs_bin_first = bin(int(secs) // 10).split('b')[1][::-1]
-        for i in range(len(secs_bin_first)):
-            self.secs_blocks[0][i].state = int(secs_bin_first[i])
-
-        secs_bin_second = bin(int(secs) % 10).split('b')[1][::-1]
-        for i in range(len(secs_bin_second)):
-            self.secs_blocks[1][i].state = int(secs_bin_second[i])
+        self._resolve_state(self.secs_blocks, secs)
+        self._resolve_state(self.secs_blocks, secs)
 
     def update(self):
         for block in self.blocks:
