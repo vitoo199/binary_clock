@@ -1,6 +1,7 @@
 import pygame as pg
 from binary_clock.block import Block
 from datetime import datetime
+from binary_clock.grid import Grid
 
 
 class Binary_Clock():
@@ -9,61 +10,54 @@ class Binary_Clock():
         self.pos = pos
         self.margin = 100
         self.block_size = pg.Vector2(50, 50)
+        self.grid = Grid(self.block_size)
         self.hours_blocks = (
-            (Block(pg.Vector2(self.pos.x, self.pos.y +
-                              self.margin * 3), self.block_size, 0),
-             Block(pg.Vector2(self.pos.x, self.pos.y +
-                              self.margin * 2), self.block_size, 0)
+            (Block(self.grid.place(self.pos, pg.Vector2(0, 4)), self.block_size, 0),
+             Block(self.grid.place(self.pos, pg.Vector2(0, 3)), self.block_size, 0)
              ),
             (
-                Block(pg.Vector2(self.pos.x + self.margin,
-                                 self.pos.y + self.margin * 3), self.block_size, 0),
-                Block(pg.Vector2(self.pos.x + self.margin,
-                                 self.pos.y + self.margin * 2), self.block_size, 0),
-                Block(pg.Vector2(self.pos.x + self.margin,
-                                 self.pos.y + self.margin * 1), self.block_size, 0),
-                Block(pg.Vector2(self.pos.x + self.margin,
-                                 self.pos.y), self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(1, 4)),
+                      self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(1, 3)),
+                      self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(1, 2)),
+                      self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(1, 1)),
+                      self.block_size, 0),
             )
 
         )
         self.mins_blocks = (
-            (Block(pg.Vector2(self.pos.x + self.margin * 2, self.pos.y +
-                              self.margin * 3), self.block_size, 0),
-             Block(pg.Vector2(self.pos.x + self.margin * 2, self.pos.y +
-                              self.margin * 2), self.block_size, 0),
-             Block(pg.Vector2(self.pos.x + self.margin * 2, self.pos.y +
-                              self.margin * 1), self.block_size, 0)
+            (Block(self.grid.place(self.pos, pg.Vector2(2, 4)), self.block_size, 0),
+             Block(self.grid.place(self.pos, pg.Vector2(2, 3)), self.block_size, 0),
+             Block(self.grid.place(self.pos, pg.Vector2(2, 2)), self.block_size, 0)
              ),
             (
-                Block(pg.Vector2(self.pos.x + self.margin * 3,
-                                 self.pos.y + self.margin * 3), self.block_size, 0),
-                Block(pg.Vector2(self.pos.x + self.margin * 3,
-                                 self.pos.y + self.margin * 2), self.block_size, 0),
-                Block(pg.Vector2(self.pos.x + self.margin * 3,
-                                 self.pos.y + self.margin * 1), self.block_size, 0),
-                Block(pg.Vector2(self.pos.x + self.margin * 3,
-                                 self.pos.y), self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(3, 4)),
+                      self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(3, 3)),
+                      self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(3, 2)),
+                      self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(3, 1)),
+                      self.block_size, 0),
             )
 
         )
         self.secs_blocks = (
-            (Block(pg.Vector2(self.pos.x + self.margin * 4, self.pos.y +
-                              self.margin * 3), self.block_size, 0),
-             Block(pg.Vector2(self.pos.x + self.margin * 4, self.pos.y +
-                              self.margin * 2), self.block_size, 0),
-             Block(pg.Vector2(self.pos.x + self.margin * 4, self.pos.y +
-                              self.margin * 1), self.block_size, 0)
+            (Block(self.grid.place(self.pos, pg.Vector2(4, 4)), self.block_size, 0),
+             Block(self.grid.place(self.pos, pg.Vector2(4, 3)), self.block_size, 0),
+             Block(self.grid.place(self.pos, pg.Vector2(4, 2)), self.block_size, 0)
              ),
             (
-                Block(pg.Vector2(self.pos.x + self.margin * 5,
-                                 self.pos.y + self.margin * 3), self.block_size, 0),
-                Block(pg.Vector2(self.pos.x + self.margin * 5,
-                                 self.pos.y + self.margin * 2), self.block_size, 0),
-                Block(pg.Vector2(self.pos.x + self.margin * 5,
-                                 self.pos.y + self.margin * 1), self.block_size, 0),
-                Block(pg.Vector2(self.pos.x + self.margin * 5,
-                                 self.pos.y), self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(5, 4)),
+                      self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(5, 3)),
+                      self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(5, 2)),
+                      self.block_size, 0),
+                Block(self.grid.place(self.pos, pg.Vector2(5, 1)),
+                      self.block_size, 0),
             )
 
         )
