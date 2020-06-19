@@ -1,6 +1,7 @@
 {
-    "workbench.editorAssociations": [
-    
-    ],
-    "python.pythonPath": "/home/vito/.virtualenvs/python_binary_clock-X2dE3snp/bin/python"
+    "workbench.editorAssociations": [],
+    "python.pythonPath": "/home/vito/.virtualenvs/python_binary_clock-X2dE3snp/bin/python",
+    "python.linting.pylintArgs": [
+        "--unsafe-load-any-extension=y"
+    ]
 }
