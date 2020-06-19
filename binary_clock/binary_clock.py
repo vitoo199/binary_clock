@@ -67,25 +67,23 @@ class Binary_Clock():
             )
 
         )
+        self.blocks = self._pack_to_1d_arr(
+            self.hours_blocks, self.mins_blocks, self.secs_blocks)
+
+    def _pack_to_1d_arr(self, *args):
+        arr = []
+        for row in args:
+            for blocks in row:
+                for block in blocks:
+                    arr.append(block)
+        return arr
 
     def draw(self, surface):
-        for row in self.hours_blocks:
-            for hour_block in row:
-                hour_block.draw(surface)
-        for row in self.mins_blocks:
-            for min_block in row:
-                min_block.draw(surface)
-        for row in self.secs_blocks:
-            for sec_block in row:
-                sec_block.draw(surface)
+        for block in self.blocks:
+            block.draw(surface)
 
-    def update(self):
-        for row in self.secs_blocks:
-            for sec_block in row:
-                sec_block.state = 0
-        now = datetime.now()
-
-        hours = now.strftime("%H")
+    def _update_hours(self, time):
+        hours = time.split(':')[0]
         hours_bin_first = bin(int(hours) // 10).split('b')[1][::-1]
         for i in range(len(hours_bin_first)):
             self.hours_blocks[0][i].state = int(hours_bin_first[i])
@@ -94,7 +92,8 @@ class Binary_Clock():
         for i in range(len(hours_bin_second)):
             self.hours_blocks[1][i].state = int(hours_bin_second[i])
 
-        mins = now.strftime("%M")
+    def _update_mins(self, time):
+        mins = time.split(':')[1]
         mins_bin_first = bin(int(mins) // 10).split('b')[1][::-1]
         for i in range(len(mins_bin_first)):
             self.mins_blocks[0][i].state = int(mins_bin_first[i])
@@ -103,12 +102,20 @@ class Binary_Clock():
         for i in range(len(mins_bin_second)):
             self.mins_blocks[1][i].state = int(mins_bin_second[i])
 
-        secs = now.strftime("%S")
+    def _update_secs(self, time):
+        secs = time.split(':')[2]
         secs_bin_first = bin(int(secs) // 10).split('b')[1][::-1]
         for i in range(len(secs_bin_first)):
             self.secs_blocks[0][i].state = int(secs_bin_first[i])
 
         secs_bin_second = bin(int(secs) % 10).split('b')[1][::-1]
-        print(secs_bin_second)
         for i in range(len(secs_bin_second)):
             self.secs_blocks[1][i].state = int(secs_bin_second[i])
+
+    def update(self):
+        for block in self.blocks:
+            block.state = 0
+        time = datetime.now().strftime('%H:%M:%S')
+        self._update_hours(time)
+        self._update_mins(time)
+        self._update_secs(time)
