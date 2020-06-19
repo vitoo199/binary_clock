@@ -6,9 +6,7 @@ from binary_clock.grid import Grid
 
 class Binary_Clock():
     def __init__(self, pos):
-        self.current_time = 0
         self.pos = pos
-        self.margin = 100
         self.block_size = pg.Vector2(50, 50)
         self.grid = Grid(self.block_size)
         self.hours_blocks = (
